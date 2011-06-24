@@ -32,6 +32,3 @@
 
 (define (ace? card)
   (equal? (butlast card) 'a))
-
-(define (compose func1 func2)
-  (lambda (x) (func1 (func2 x))))
