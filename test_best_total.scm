@@ -25,6 +25,7 @@
 (assert (best-total '(as as as as)) 14 "as as as as -> 14")
 (assert (best-total '(10s as as)) 12 "10s as as -> 12")
 (assert (best-total '(as as as as as as as as as as as as)) 12 "as as as as as as as as as as as as-> 12")
+(assert (best-total '(10s 10s as as)) 0 "10s 10s as as -> 0")
 
 ; book examples
 (assert (best-total '(ad 8s)) 19 "ad 8s -> 19")
