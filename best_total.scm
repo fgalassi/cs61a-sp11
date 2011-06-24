@@ -1,7 +1,7 @@
 (load "higher-order")
 
 (define (best-total hand)
-  (let* ((total-non-aces (sum (map value-of-card (non-aces hand))))
+  (let* ((total-non-aces (sum (map card-points (non-aces hand))))
          (total (add-n-aces-to (count (aces hand)) total-non-aces)))
     (if (valid-total? total)
       total
@@ -10,13 +10,13 @@
 (define (valid-total? total)
   (<= total 21))
 
-(define (value-of-card card)
-  (let ((value (butlast card)))
-    (cond ((member? value '(j q k))
-          10)
-          ((equal? value 'a)
-          11)
-          (else value))))
+(define (card-points card)
+    (cond ((face-card? card) 10)
+          ((ace? card) 11)
+          (else (card-value card))))
+
+(define (card-value card)
+  (butlast card))
 
 (define (add-n-aces-to number-of-aces total)
   (let ((highest-total (+ total (* number-of-aces 11))))
@@ -31,4 +31,7 @@
   (filter ace? cards))
 
 (define (ace? card)
-  (equal? (butlast card) 'a))
+  (equal? (card-value card) 'a))
+
+(define (face-card? card)
+  (member? (card-value card) '(j q k)))
