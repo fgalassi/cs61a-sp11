@@ -35,3 +35,17 @@
 
 (define (face-card? card)
   (member? (card-value card) '(j q k)))
+
+; RECURSIVE
+;(define (best-total hand)
+;  (bt hand 0))
+;
+;(define (bt hand total)
+;    (cond ((not (valid-total? total)) 0)
+;          ((empty? hand) total)
+;          (else (let ((card (first hand))
+;                      (rest (butfirst hand)))
+;                  (if (ace? card)
+;                    (max (bt rest (+ total 1)) (bt rest (+ total 11)))
+;                    (bt rest (+ total (card-points card))))))))
+;
