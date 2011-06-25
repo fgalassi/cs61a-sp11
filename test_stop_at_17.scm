@@ -12,6 +12,7 @@
 (assert equal? (stop-at-17 '(as 5s) 'as) #t "as 5s -> #t") 
 (assert equal? (stop-at-17 '(as 6s) 'as) #f "as 6s -> #f") 
 (assert equal? (stop-at-17 '(3s 4s 5s as) 'as) #t "3s 4s 5s as -> #t") 
+(assert equal? (stop-at-17 '(4h 10h 10s) 'as) #f "4h 10h 10s -> #f")
 
 (display "done.\n")
 (quit)

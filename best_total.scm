@@ -1,11 +1,9 @@
 (load "higher-order")
 
 (define (best-total hand)
-  (let* ((total-non-aces (sum (map card-points (non-aces hand))))
-         (total (add-n-aces-to (count (aces hand)) total-non-aces)))
-    (if (valid-total? total)
-      total
-      0)))
+  (let ((total-non-aces (sum (map card-points (non-aces hand)))))
+    (add-n-aces-to (count (aces hand)) total-non-aces)))
+      
 
 (define (valid-total? total)
   (<= total 21))
