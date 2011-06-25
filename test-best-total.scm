@@ -1,5 +1,5 @@
 (load "load-simply")
-(load "best_total")
+(load "best-total")
 
 (define (assert actual expected msg)
   (if (not (= actual expected))

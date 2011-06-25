@@ -1,5 +1,5 @@
 (load "load-simply")
-(load "stop_at_17")
+(load "stop-at-17")
 
 (define (assert comparison actual expected msg)
   (if (not (comparison actual expected))

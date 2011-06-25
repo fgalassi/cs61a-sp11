@@ -1,4 +1,4 @@
-(load "best_total")
+(load "best-total")
 
 (define (dealer-sensitive hand dealer-card)
   (let ((player-points (best-total hand))

@@ -1,5 +1,5 @@
 (load "load-simply")
-(load "dealer_sensitive")
+(load "dealer-sensitive")
 
 (define (assert comparison actual expected msg)
   (if (not (comparison actual expected))
