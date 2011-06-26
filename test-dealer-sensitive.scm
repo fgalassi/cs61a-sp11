@@ -1,9 +1,6 @@
 (load "load-simply")
 (load "dealer-sensitive")
-
-(define (assert comparison actual expected msg)
-  (if (not (comparison actual expected))
-    (display (format #f "ERROR! ~S: actual ~A expected ~A\n" msg actual expected))))
+(load "assert")
 
 (assert equal? (dealer-sensitive '(as) '2s) #t "as (2s) -> #t")
 (assert equal? (dealer-sensitive '(as) '6s) #t "as (6s) -> #t")

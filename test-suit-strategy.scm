@@ -1,10 +1,7 @@
 (load "load-simply")
 (load "suit-strategy")
 (load "stop-at")
-
-(define (assert comparison actual expected msg)
-  (if (not (comparison actual expected))
-    (display (format #f "ERROR! ~S: actual ~A expected ~A\n" msg actual expected))))
+(load "assert")
 
 (define (valentine-strategy hand dealer-card)
   ((suit-strategy 'h (stop-at 19) (stop-at 17)) hand dealer-card))

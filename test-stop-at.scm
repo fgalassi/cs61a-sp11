@@ -1,9 +1,6 @@
 (load "load-simply")
 (load "stop-at")
-
-(define (assert comparison actual expected msg)
-  (if (not (comparison actual expected))
-    (display (format #f "ERROR! ~S: actual ~A expected ~A\n" msg actual expected))))
+(load "assert")
 
 (define stop-at-0 (stop-at 0))
 (assert equal? (stop-at-0 '() 'as) #f "empty hand -> #f")
