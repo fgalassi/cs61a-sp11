@@ -15,6 +15,11 @@
       (sentence (first sent) (filter pred (butfirst sent)))
       (filter pred (butfirst sent)))))
 
+(define (any? pred sent)
+  (cond ((empty? sent) #f)
+        ((pred (first sent)) #t)
+        (else (any? pred (butfirst sent)))))
+
 (define (compose func1 func2)
   (lambda (x) (func1 (func2 x))))
 
