@@ -1,49 +1,64 @@
 (load "higher-order")
 
 (define (best-total hand)
-  (let ((total-non-aces (sum (map card-points (non-aces hand)))))
-    (add-n-aces-to (count (aces hand)) total-non-aces)))
-      
+  (let ((total (bt hand 0)))
+    (if (> total 21)
+      999
+      total)))
 
-(define (valid-total? total)
-  (<= total 21))
+(define (bt hand total)
+  (cond ((empty? hand) total)
+        ((> total 21) total)
+        ((card-ace? (first hand))
+         (max-less-than-21
+           (bt (butfirst hand) (+ total 1))
+           (bt (butfirst hand) (+ total 11))))
+        ((card-joker? (first hand))
+         (max-less-than-21
+           (bt (butfirst hand) (+ total 1))
+           (bt (butfirst hand) (+ total 2))
+           (bt (butfirst hand) (+ total 3))
+           (bt (butfirst hand) (+ total 4))
+           (bt (butfirst hand) (+ total 5))
+           (bt (butfirst hand) (+ total 6))
+           (bt (butfirst hand) (+ total 7))
+           (bt (butfirst hand) (+ total 8))
+           (bt (butfirst hand) (+ total 9))
+           (bt (butfirst hand) (+ total 10))
+           (bt (butfirst hand) (+ total 11))))
+        (else
+          (let ((current-card-points (card-points (first hand))))
+            (bt (butfirst hand) (+ total current-card-points))))))
+
+(define (max-less-than-21 . numbers)
+  (let ((numbers-less-than-21 (filter less-than-21? numbers)))
+    (cond ((empty? numbers) 0)
+          ((empty? numbers-less-than-21) (max-number numbers))
+          (else (max-number numbers-less-than-21)))))
+
+(define (less-than-21? num)
+  (<= num 21))
+
+(define (max-number numbers)
+  (reduce
+    0
+    (lambda (total num) (max num total))
+    numbers))
 
 (define (card-points card)
-    (cond ((face-card? card) 10)
-          ((ace? card) 11)
-          (else (card-value card))))
+  (cond ((card-joker? card) 11)
+        ((card-ace? card) 11)
+        ((card-face? card) 10)
+        (else (card-value card))))
 
 (define (card-value card)
   (butlast card))
 
-(define (add-n-aces-to number-of-aces total)
-  (let ((highest-total (+ total (* number-of-aces 11))))
-    (if (or (valid-total? highest-total) (= 0 number-of-aces))
-      highest-total
-      (add-n-aces-to (- number-of-aces 1) (+ total 1)))))
-
-(define (non-aces cards)
-  (filter (compose not ace?) cards))
-
-(define (aces cards)
-  (filter ace? cards))
-
-(define (ace? card)
+(define (card-ace? card)
   (equal? (card-value card) 'a))
 
-(define (face-card? card)
+(define (card-face? card)
   (member? (card-value card) '(j q k)))
 
-; RECURSIVE
-;(define (best-total hand)
-;  (bt hand 0))
-;
-;(define (bt hand total)
-;    (cond ((not (valid-total? total)) 0)
-;          ((empty? hand) total)
-;          (else (let ((card (first hand))
-;                      (rest (butfirst hand)))
-;                  (if (ace? card)
-;                    (max (bt rest (+ total 1)) (bt rest (+ total 11)))
-;                    (bt rest (+ total (card-points card))))))))
-;
+(define (card-joker? card)
+  (equal? card 'jr))
