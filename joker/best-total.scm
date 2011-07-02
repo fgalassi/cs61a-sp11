@@ -15,13 +15,22 @@
       (cond ((empty? hand) total)
             ((card-ace? current-card)
              (max-less-than-21
-               (map (try-bt-with-value next-hand total) '(1 11))))
+               (map (try-bt-with-value next-hand total) (ace-possible-points))))
             ((card-joker? current-card)
              (max-less-than-21
-               (map (try-bt-with-value next-hand total) '(1 2 3 4 5 6 7 8 9 10 11))))
+               (map (try-bt-with-value next-hand total) (joker-possible-points))))
             (else
               (max-less-than-21
-                (map (try-bt-with-value next-hand total) (sentence current-card-points))))))))
+                (map (try-bt-with-value next-hand total) (numeric-possible-points current-card-points))))))))
+
+(define (ace-possible-points)
+  '(1 11))
+
+(define (joker-possible-points)
+  '(1 2 3 4 5 6 7 8 9 10 11))
+
+(define (numeric-possible-points points)
+  (sentence points))
 
 (define (try-bt-with-value hand total)
   (lambda (value) (bt hand (+ total value))))
