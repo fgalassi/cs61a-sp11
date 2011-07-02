@@ -10,27 +10,25 @@
   (if (empty? hand)
     total
     (let* ((current-card (first hand))
-           (current-card-points (card-points current-card))
            (next-hand (butfirst hand)))
-      (cond ((empty? hand) total)
-            ((card-ace? current-card)
-             (max-less-than-21
-               (map (try-bt-with-value next-hand total) (ace-possible-points))))
-            ((card-joker? current-card)
-             (max-less-than-21
-               (map (try-bt-with-value next-hand total) (joker-possible-points))))
-            (else
-              (max-less-than-21
-                (map (try-bt-with-value next-hand total) (numeric-possible-points current-card-points))))))))
+      (if (empty? hand)
+        total
+        (max-less-than-21
+          (map (try-bt-with-value next-hand total) (card-possible-points current-card)))))))
 
-(define (ace-possible-points)
-  '(1 11))
+(define (card-possible-points card)
+  (cond ((card-joker? card) '(1 2 3 4 5 6 7 8 9 10 11))
+        ((card-ace? card) '(1 11))
+        (else (sentence (card-points card)))))
 
-(define (joker-possible-points)
-  '(1 2 3 4 5 6 7 8 9 10 11))
+;(define (ace-possible-points)
+  ;'(1 11))
 
-(define (numeric-possible-points points)
-  (sentence points))
+;(define (joker-possible-points)
+  ;)
+
+;(define (numeric-possible-points points)
+  ;(sentence points))
 
 (define (try-bt-with-value hand total)
   (lambda (value) (bt hand (+ total value))))
