@@ -15,26 +15,18 @@
       (cond ((empty? hand) total)
             ((card-ace? current-card)
              (max-less-than-21
-               (bt next-hand (+ total 1))
-               (bt next-hand (+ total 11))))
+               (map (try-bt-with-value next-hand total) '(1 11))))
             ((card-joker? current-card)
              (max-less-than-21
-               (bt next-hand (+ total 1))
-               (bt next-hand (+ total 2))
-               (bt next-hand (+ total 3))
-               (bt next-hand (+ total 4))
-               (bt next-hand (+ total 5))
-               (bt next-hand (+ total 6))
-               (bt next-hand (+ total 7))
-               (bt next-hand (+ total 8))
-               (bt next-hand (+ total 9))
-               (bt next-hand (+ total 10))
-               (bt next-hand (+ total 11))))
+               (map (try-bt-with-value next-hand total) '(1 2 3 4 5 6 7 8 9 10 11))))
             (else
               (max-less-than-21
-                (bt next-hand (+ total current-card-points))))))))
+                (map (try-bt-with-value next-hand total) (sentence current-card-points))))))))
 
-(define (max-less-than-21 . numbers)
+(define (try-bt-with-value hand total)
+  (lambda (value) (bt hand (+ total value))))
+
+(define (max-less-than-21 numbers)
   (let ((numbers-less-than-21 (filter less-than-21? numbers)))
     (cond ((empty? numbers) 0)
           ((empty? numbers-less-than-21) (max-number numbers))
