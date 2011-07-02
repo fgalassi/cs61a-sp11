@@ -13,7 +13,6 @@
            (current-card-points (card-points current-card))
            (next-hand (butfirst hand)))
       (cond ((empty? hand) total)
-            ((> total 21) total)
             ((card-ace? current-card)
              (max-less-than-21
                (bt next-hand (+ total 1))
@@ -32,7 +31,8 @@
                (bt next-hand (+ total 10))
                (bt next-hand (+ total 11))))
             (else
-              (bt next-hand (+ total current-card-points)))))))
+              (max-less-than-21
+                (bt next-hand (+ total current-card-points))))))))
 
 (define (max-less-than-21 . numbers)
   (let ((numbers-less-than-21 (filter less-than-21? numbers)))
