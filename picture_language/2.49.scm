@@ -1,43 +1,47 @@
-(define outline-painter
-  (segments->painter
-    (list
-      (make-segment (make-vector 0 0) (make-vector 1 0))
-      (make-segment (make-vector 1 0) (make-vector 1 1))
-      (make-segment (make-vector 1 1) (make-vector 0 1))
-      (make-segment (make-vector 0 1) (make-vector 0 0)))))
+(load "vect")
+(load "segment")
+(load "frame")
+(load "picture")
 
-(define x-painter
+(define outline
   (segments->painter
     (list
-      (make-segment (make-vector 0 0) (make-vector 1 1))
-      (make-segment (make-vector 0 1) (make-vector 1 0)))))
+      (make-segment (make-vect 0 0) (make-vect 1 0))
+      (make-segment (make-vect 1 0) (make-vect 1 1))
+      (make-segment (make-vect 1 1) (make-vect 0 1))
+      (make-segment (make-vect 0 1) (make-vect 0 0)))))
 
-(define diamond-painter
+(define cross
   (segments->painter
     (list
-      (make-segment (make-vector 0.5 0) (make-vector 1 0.5))
-      (make-segment (make-vector 1 0.5) (make-vector 0.5 1))
-      (make-segment (make-vector 0.5 1) (make-vector 0 0.5))
-      (make-segment (make-vector 0 0.5) (make-vector 0.5 0)))))
+      (make-segment (make-vect 0 0) (make-vect 1 1))
+      (make-segment (make-vect 0 1) (make-vect 1 0)))))
+
+(define diamond
+  (segments->painter
+    (list
+      (make-segment (make-vect 0.5 0) (make-vect 1 0.5))
+      (make-segment (make-vect 1 0.5) (make-vect 0.5 1))
+      (make-segment (make-vect 0.5 1) (make-vect 0 0.5))
+      (make-segment (make-vect 0 0.5) (make-vect 0.5 0)))))
 
 (define wave
   (segments->painter
     (list
-      (make-segment (make-vector 0.354 0.000) (make-vector 0.284 0.124))
-      (make-segment (make-vector 0.284 0.124) (make-vector 0.367 0.300))
-      (make-segment (make-vector 0.367 0.300) (make-vector 0.279 0.300))
-      (make-segment (make-vector 0.279 0.300) (make-vector 0.114 0.346))
-      (make-segment (make-vector 0.114 0.346) (make-vector 0.000 0.172))
-      (make-segment (make-vector 0.000 0.295) (make-vector 0.118 0.480))
-      (make-segment (make-vector 0.118 0.480) (make-vector 0.273 0.373))
-      (make-segment (make-vector 0.273 0.373) (make-vector 0.325 0.425))
-      (make-segment (make-vector 0.325 0.425) (make-vector 0.232 1.000))
-      (make-segment (make-vector 0.388 1.000) (make-vector 0.453 0.664))
-      (make-segment (make-vector 0.453 0.664) (make-vector 0.576 1.000))
-      (make-segment (make-vector 0.710 1.000) (make-vector 0.533 0.539))
-      (make-segment (make-vector 0.533 0.539) (make-vector 1.000 0.740))
-      (make-segment (make-vector 1.000 0.607) (make-vector 0.611 0.305))
-      (make-segment (make-vector 0.611 0.305) (make-vector 0.535 0.305))
-      (make-segment (make-vector 0.535 0.305) (make-vector 0.586 0.125))
-      (make-segment (make-vector 0.586 0.125) (make-vector 0.507 0.000)))))
-
+      (make-segment (make-vect 0.354 1.000) (make-vect 0.284 0.876))
+      (make-segment (make-vect 0.284 0.876) (make-vect 0.367 0.700))
+      (make-segment (make-vect 0.367 0.700) (make-vect 0.279 0.700))
+      (make-segment (make-vect 0.279 0.700) (make-vect 0.114 0.654))
+      (make-segment (make-vect 0.114 0.654) (make-vect 0.000 0.828))
+      (make-segment (make-vect 0.000 0.705) (make-vect 0.118 0.520))
+      (make-segment (make-vect 0.118 0.520) (make-vect 0.273 0.627))
+      (make-segment (make-vect 0.273 0.627) (make-vect 0.325 0.575))
+      (make-segment (make-vect 0.325 0.575) (make-vect 0.232 0.000))
+      (make-segment (make-vect 0.388 0.000) (make-vect 0.453 0.336))
+      (make-segment (make-vect 0.453 0.336) (make-vect 0.576 0.000))
+      (make-segment (make-vect 0.710 0.000) (make-vect 0.533 0.461))
+      (make-segment (make-vect 0.533 0.461) (make-vect 1.000 0.260))
+      (make-segment (make-vect 1.000 0.393) (make-vect 0.611 0.695))
+      (make-segment (make-vect 0.611 0.695) (make-vect 0.535 0.695))
+      (make-segment (make-vect 0.535 0.695) (make-vect 0.586 0.875))
+      (make-segment (make-vect 0.586 0.875) (make-vect 0.507 1.000)))))
