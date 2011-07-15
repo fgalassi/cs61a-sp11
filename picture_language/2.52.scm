@@ -28,3 +28,10 @@
       (make-segment (make-vect 0.440 0.840) (make-vect 0.440 0.810))
       (make-segment (make-vect 0.386 0.747) (make-vect 0.449 0.717))
       (make-segment (make-vect 0.449 0.717) (make-vect 0.502 0.750)))))
+
+(define (corner-split painter n)
+  (if (= n 0)
+      painter
+      (beside
+        (below painter painter)
+        (below painter (corner-split painter (- n 1))))))
