@@ -1,0 +1,10 @@
+(define (expt b n)
+  (define (iter a b n)
+    (define (even? m)
+      (= (remainder m 2) 0))
+    (if (= n 0)
+      a
+      (if (even? n)
+        (iter a (* b b) (/ n 2))
+        (iter (* a b) b (- n 1)))))
+  (iter 1 b n))

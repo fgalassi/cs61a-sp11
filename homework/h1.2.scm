@@ -1,0 +1,6 @@
+(define (squares sentence-of-numbers)
+  (define (square x)
+    (* x x ))
+  (if (empty? sentence-of-numbers)
+    '() 
+    (sentence (square (first sentence-of-numbers)) (squares (butfirst sentence-of-numbers)))))
