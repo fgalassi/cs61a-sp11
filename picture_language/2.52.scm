@@ -35,3 +35,8 @@
       (beside
         (below painter painter)
         (below painter (corner-split painter (- n 1))))))
+
+(define (square-limit painter n)
+  (let ((quarter (corner-split (flip-horiz painter) n)))
+    (let ((half (beside (flip-horiz quarter) quarter)))
+      (below (flip-vert half) half))))
