@@ -4,4 +4,5 @@
           ((eq? op 'imag-part) (* r (sin a)))
           ((eq? op 'magnitude) r)
           ((eq? op 'angle) a)
-          (else (error "Unknown operation: " op)))))
+          (else (error "Unknown operation: " op))))
+  dispatch)
