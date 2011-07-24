@@ -35,8 +35,7 @@
 (define (let-body let-exp) (caddr let-exp))
 
 (define (eval-let exp)
-    ;(apply-1 (list 'lambda (let-names exp) (let-body exp)) (map eval-1 (let-values exp))))
-    (apply-1 (list 'lambda (let-names exp) (let-body exp)) (let-values exp)))
+    (apply-1 (list 'lambda (let-names exp) (let-body exp)) (map eval-1 (let-values exp))))
 
 (define (constant? exp)
   (or (number? exp) (boolean? exp) (string? exp) (procedure? exp)))
