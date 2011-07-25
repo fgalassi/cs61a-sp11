@@ -1,0 +1,16 @@
+(load "obj")
+
+(define-class (coke-machine max-cokes price)
+  (instance-vars (cokes 0) (current-deposit 0))
+  (method (fill numcokes)
+    (let ((new-cokes (+ cokes numcokes)))
+      (if (> new-cokes max-cokes)
+        (error "MAXIMUM NUMBER OF COKES REACHED: " max-cokes)
+        (set! cokes new-cokes))))
+  (method (deposit amount)
+    (set! current-deposit (+ current-deposit amount)))
+  (method (coke)
+    (cond ((< current-deposit price) (error "NOT ENOUGH MONEY: " current-deposit))
+          ((< cokes 1) (error "EMPTY MACHINE"))
+          (else (begin (set! current-deposit (- current-deposit price)) (set! cokes (- cokes 1)) current-deposit)))))
+      
