@@ -1,0 +1,79 @@
+okay
+STk> (define singer (instantiate person 'rick sproul-plaza))
+"Praise the Lord"
+"My funny valentine, sweet comic valentine"
+singer
+STk> 
+(ask singer 'set-talk "My funny valentine, sweet comic valentine")
+okay
+STk> 
+(define preacher (instantiate person 'preacher sproul-plaza))
+"My funny valentine, sweet comic valentine"
+"Praise the Lord"
+"My funny valentine, sweet comic valentine"
+preacher
+STk> 
+(ask preacher 'set-talk "Praise the Lord")
+okay
+STk> 
+(define street-person (instantiate person 'harry telegraph-ave))
+"Brother, can you spare a buck"
+"There are tie-dyed shirts as far as you can see..."
+street-person
+STk> 
+(ask street-person 'set-talk "Brother, can you spare a buck")
+okay
+STk> (ask federico 'go 'west)
+
+
+federico moved from dormitory to haas-business-school
+appeared
+STk> (ask federico 'go 'west)
+
+
+federico moved from haas-business-school to sproul-hall
+"Miles and miles of students are waiting in line..."
+appeared
+STk> (ask federico 'go 'west)
+*** Error:
+    You can check out any time you'd like, but you can never leave
+Current eval stack:
+__________________
+  0    (apply stk-error args)
+  1    (for-each (lambda (proc) (proc)) exit-procs)
+  2    (apply method args)
+  3    (cond ((null? new-place) (error "Can't go" direction)) (else (ask place (quote exit) self) (announce-move name place new-place) (for-each (lambda (p) (ask place (quote gone) p) (ask new-place (quote appear) p)) possessions) (set! place new-place) (ask new-place (quote enter) self)))
+STk> (ask federico 'go 'west)
+*** Error:
+    You can check out any time you'd like, but you can never leave
+Current eval stack:
+__________________
+  0    (apply stk-error args)
+  1    (for-each (lambda (proc) (proc)) exit-procs)
+  2    (apply method args)
+  3    (cond ((null? new-place) (error "Can't go" direction)) (else (ask place (quote exit) self) (announce-move name place new-place) (for-each (lambda (p) (ask place (quote gone) p) (ask new-place (quote appear) p)) possessions) (set! place new-place) (ask new-place (quote enter) self)))
+STk> (ask federico 'go 'west)
+*** Error:
+    You can check out any time you'd like, but you can never leave
+Current eval stack:
+__________________
+  0    (apply stk-error args)
+  1    (for-each (lambda (proc) (proc)) exit-procs)
+  2    (apply method args)
+  3    (cond ((null? new-place) (error "Can't go" direction)) (else (ask place (quote exit) self) (announce-move name place new-place) (for-each (lambda (p) (ask place (quote gone) p) (ask new-place (quote appear) p)) possessions) (set! place new-place) (ask new-place (quote enter) self)))
+STk> (ask federico 'go 'west)
+"Ok, you can go"
+
+
+federico moved from sproul-hall to sproul-plaza
+"Praise the Lord"
+"My funny valentine, sweet comic valentine"
+appeared
+STk> (ask federico 'go 'south)
+
+
+federico moved from sproul-plaza to telegraph-ave
+"Brother, can you spare a buck"
+"There are tie-dyed shirts as far as you can see..."
+appeared
+STk> (quit)
