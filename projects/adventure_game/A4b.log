@@ -1,0 +1,25 @@
+okay
+STk> (load "obj")
+okay
+STk> (load "adv")
+okay
+STk> (load "adv-world")
+okay
+STk> (define gringotts (instantiate locked-place 'gringotts))
+gringotts
+STk> (can-go dormitory 'north gringotts)
+connected
+STk> (ask federico 'go 'north)
+*** Error:
+    Locked place
+Current eval stack:
+__________________
+  0    (apply stk-error args)
+STk> (ask gringotts 'unlock)
+okay
+STk> (ask federico 'go 'north)
+
+
+federico moved from dormitory to gringotts
+appeared
+STk> (quit)

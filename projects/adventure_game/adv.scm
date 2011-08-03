@@ -22,6 +22,7 @@
 	(error "Thing already in this place" (list name new-thing)))
     (set! things (cons new-thing things))
     'appeared)
+  (method (may-enter? person) #t)
   (method (enter new-person)
     (if (memq new-person people)
       (error "Person already in this place" (list name new-person)))
@@ -60,6 +61,12 @@
     (set! exit-procs '())
     (set! entry-procs '())
     'cleared) )
+
+(define-class (locked-place name)
+  (parent (place name))
+  (instance-vars (unlocked #f))
+  (method (may-enter? person) unlocked)
+  (method (unlock) (set! unlocked #t)))
 
 (define-class (person name place)
   (instance-vars
@@ -105,8 +112,8 @@
   (method (notice person) (ask self 'talk))
   (method (go direction)
     (let ((new-place (ask place 'look-in direction)))
-      (cond ((null? new-place)
-	     (error "Can't go" direction))
+      (cond ((null? new-place) (error "Can't go" direction))
+            ((not (ask new-place 'may-enter? self)) (error "Locked place"))
 	    (else
 	     (ask place 'exit self)
 	     (announce-move name place new-place)
