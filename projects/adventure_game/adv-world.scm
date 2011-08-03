@@ -16,7 +16,8 @@
 (define Intermezzo (instantiate place 'Intermezzo))
 (define Haas (instantiate place 'Haas-Business-School))
 (define s-h (instantiate place 'sproul-hall))
-
+(define Dormitory (instantiate place 'Dormitory))
+(define Kirin (instantiate place 'Kirin))
 
 (can-go Soda 'up art-gallery)
 (can-go art-gallery 'down Soda)
@@ -41,6 +42,10 @@
 (can-go Noahs 'north Telegraph-Ave)
 (can-go Noahs 'south Intermezzo)
 (can-go Intermezzo 'north Noahs)
+(can-go Haas 'east Dormitory)
+(can-go Dormitory 'west Haas)
+(can-go Soda 'north Kirin)
+(can-go Kirin 'south Soda)
 
 ;; Some people.
 ; MOVED above the add-entry-procedure stuff, to avoid the "The computers
@@ -50,6 +55,7 @@
 (define Brian (instantiate person 'Brian BH-Office))
 (define hacker (instantiate person 'hacker 61A-lab))
 (define nasty (instantiate thief 'nasty sproul-plaza))
+(define Federico (instantiate person 'Federico Dormitory))
 
 (define sproul-hall-exit
   (let ((times 0))
@@ -89,3 +95,6 @@
 
 (define coffee (instantiate thing 'coffee))
 (ask Intermezzo 'appear coffee)
+
+(define potstickers (instantiate thing 'potstickers))
+(ask Kirin 'appear potstickers)
