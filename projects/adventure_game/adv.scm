@@ -138,6 +138,12 @@
 	       
 	   (ask thing 'change-possessor self)
 	   'taken)))
+  (method (take-all)
+    (for-each
+      (lambda (avail-thing) (ask self 'take avail-thing))
+      (filter
+        (lambda (thing) (eq? (ask thing 'possessor) 'no-one))
+        (ask place 'things))))
 
   (method (lose thing)
     (set! possessions (delete thing possessions))
