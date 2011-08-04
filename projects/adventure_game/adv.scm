@@ -3,7 +3,16 @@
 ;; game and some utility procedures.
 (load "tables")
 
+(define-class (basic-object)
+  (instance-vars (properties (make-table)))
+  (method (put property value)
+    (insert! property value properties))
+  (method (get property)
+    (lookup property properties))
+  (default-method (ask self 'get message)))
+
 (define-class (place name)
+  (parent (basic-object))
   (instance-vars
    (directions-and-neighbors '())
    (things '())
@@ -106,10 +115,12 @@
     (set! next-serial (+ next-serial 1))))
 
 (define-class (person name place)
+  (parent (basic-object))
   (instance-vars
    (possessions '())
    (saying ""))
   (initialize
+   (ask self 'put 'strength 50)
    (ask place 'enter self))
   (method (type) 'person)
   (method (look-around)
@@ -168,30 +179,12 @@
 	     (set! place new-place)
 	     (ask new-place 'enter self))))) )
 
-(define thing
-  (let ()
-    (lambda (class-message)
-      (cond
-       ((eq? class-message 'instantiate)
-	(lambda (name)
-	  (let ((self '()) (possessor 'no-one))
-	    (define (dispatch message)
-	      (cond
-	       ((eq? message 'initialize)
-		(lambda (value-for-self)
-		  (set! self value-for-self)))
-	       ((eq? message 'send-usual-to-parent)
-		(error "Can't use USUAL without a parent." 'thing))
-	       ((eq? message 'name) (lambda () name))
-	       ((eq? message 'possessor) (lambda () possessor))
-	       ((eq? message 'type) (lambda () 'thing))
-	       ((eq? message 'change-possessor)
-		(lambda (new-possessor)
-		  (set! possessor new-possessor)))
-	       (else (no-method 'thing))))
-	    dispatch)))
-       (else (error "Bad message to class" class-message))))))
-
+(define-class (thing name)
+  (parent (basic-object))
+  (instance-vars (possessor 'no-one))
+  (method (type) 'thing)
+  (method (change-possessor new-possessor)
+    (set! possessor new-possessor)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Implementation of thieves for part two
