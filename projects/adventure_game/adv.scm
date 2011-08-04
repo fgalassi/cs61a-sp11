@@ -278,3 +278,10 @@
 (define (thing? obj)
   (and (procedure? obj)
        (eq? (ask obj 'type) 'thing)))
+
+(define (name obj attr)
+  (let ((stuff (ask obj attr))
+        (give-name (lambda (o) (if (object? o) (ask o 'name) o))))
+    (if (list? stuff)
+      (map give-name stuff)
+      (give-name stuff))))
