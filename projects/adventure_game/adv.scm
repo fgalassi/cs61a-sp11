@@ -1,6 +1,7 @@
 ;; ADV.SCM
 ;; This file contains the definitions for the objects in the adventure
 ;; game and some utility procedures.
+(load "tables")
 
 (define-class (place name)
   (instance-vars
@@ -67,6 +68,42 @@
   (instance-vars (unlocked #f))
   (method (may-enter? person) unlocked)
   (method (unlock) (set! unlocked #t)))
+
+(define-class (garage name)
+  (parent (place name))
+  (instance-vars (ticket-car (make-table)))
+  (method (park new-car)
+    (if (memq new-car (ask self 'things))
+      (let ((new-ticket (instantiate ticket))
+            (car-owner (ask new-car 'possessor)))
+        (insert! (ask new-ticket 'serial) new-car ticket-car)
+        (ask car-owner 'lose new-car)
+        (ask self 'gone new-car)
+        (ask self 'appear new-ticket)
+        (ask car-owner 'take new-ticket))
+      (error "Where is your car?")))
+  (method (unpark ticket)
+    (if (and (object? ticket) (eq? (ask ticket 'name) 'ticket))
+      (let* ((serial (ask ticket 'serial))
+             (parked-car (lookup serial ticket-car))
+             (ticket-owner (ask ticket 'possessor)))
+        (if parked-car
+          (begin
+            (ask ticket-owner 'lose ticket)
+            (ask self 'gone ticket)
+            (ask self 'appear parked-car)
+            (ask ticket-owner 'take parked-car)
+            (insert! serial #f ticket-car))
+          (error "Car not in this garage!")))
+      (error "Not a ticket!"))))
+
+(define-class (ticket)
+  (parent (thing 'ticket))
+  (class-vars (next-serial 0))
+  (instance-vars (serial '()))
+  (initialize
+    (set! serial next-serial)
+    (set! next-serial (+ next-serial 1))))
 
 (define-class (person name place)
   (instance-vars
