@@ -116,6 +116,31 @@
     (set! serial next-serial)
     (set! next-serial (+ next-serial 1))))
 
+(define-class (hotspot name password)
+  (parent (place name))
+  (instance-vars (connected '()))
+  (method (connect laptop try-password)
+    (if (eq? try-password password)
+      (begin (set! connected (cons laptop connected)) 'connected)
+      (error "invalid password")))
+  (method (gone thing)
+    (if (memq thing connected) (set! connected (delete thing connected)))
+    (usual 'gone thing))
+  (method (surf laptop url)
+    (if (memq laptop connected) (system (string-append "lynx " url)) 'not-connected)))
+
+(define-class (laptop name)
+  (parent (thing name))
+  (method (location)
+    (let ((possessor (ask self 'possessor)))
+      (if (eq? possessor 'no-one)
+        'no-where
+        (ask possessor 'place))))
+  (method (connect try-password)
+    (ask (ask self 'location) 'connect self try-password))
+  (method (surf url)
+    (ask (ask self 'location) 'surf self url)))
+
 (define-class (person name place)
   (parent (basic-object))
   (instance-vars
