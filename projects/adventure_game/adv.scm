@@ -19,6 +19,8 @@
    (people '())
    (entry-procs '())
    (exit-procs '()))
+  (initialize
+    (ask self 'put 'place? #t))
   (method (type) 'place)
   (method (neighbors) (map cdr directions-and-neighbors))
   (method (exits) (map car directions-and-neighbors))
@@ -120,8 +122,9 @@
    (possessions '())
    (saying ""))
   (initialize
-   (ask self 'put 'strength 50)
-   (ask place 'enter self))
+    (ask self 'put 'person? #t)
+    (ask self 'put 'strength 50)
+    (ask place 'enter self))
   (method (type) 'person)
   (method (look-around)
     (map (lambda (obj) (ask obj 'name))
@@ -182,6 +185,8 @@
 (define-class (thing name)
   (parent (basic-object))
   (instance-vars (possessor 'no-one))
+  (initialize
+    (ask self 'put 'thing? #t))
   (method (type) 'thing)
   (method (change-possessor new-possessor)
     (set! possessor new-possessor)))
@@ -271,12 +276,13 @@
 	(else (cons (car stuff) (delete thing (cdr stuff)))) ))
 
 (define (person? obj)
-  (and (procedure? obj)
-       (member? (ask obj 'type) '(person police thief))))
+  (and (procedure? obj) (ask obj 'person?)))
 
 (define (thing? obj)
-  (and (procedure? obj)
-       (eq? (ask obj 'type) 'thing)))
+  (and (procedure? obj) (ask obj 'thing?)))
+
+(define (place? obj)
+  (and (procedure? obj) (ask obj 'place?)))
 
 (define (name obj attr)
   (let ((stuff (ask obj attr))
