@@ -5,7 +5,7 @@
        (count-pairs (cdr x))
        1)))
 
-; returns 
+; returns 3
 ; -> [1|*] -> [2|*] -> [3|/]
 (define a1 (list 1 2 3))
 
