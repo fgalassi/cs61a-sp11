@@ -1,0 +1,11 @@
+(define (vector-append vec1 vec2)
+  (define (vector-copy vec-src vec-dst end len)
+    (if (> len 0)
+      (begin
+        (vector-set! vec-dst end (vector-ref vec-src (- len 1))) 
+        (vector-copy vec-src vec-dst (- end 1) (- len 1)))
+      vec-dst))
+  (let ((newvec (make-vector (+ (vector-length vec1) (vector-length vec2)))))
+    (vector-copy vec1 newvec (- (vector-length vec1) 1) (vector-length vec1))
+    (vector-copy vec2 newvec (- (vector-length newvec) 1) (vector-length vec2))
+    newvec))
