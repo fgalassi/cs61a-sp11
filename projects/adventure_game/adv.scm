@@ -39,7 +39,7 @@
     (if (memq new-person people)
       (error "Person already in this place" (list name new-person)))
     (set! people (cons new-person people))
-    (for-each (lambda (person) (ask person 'notice self)) (cdr people))
+    (for-each (lambda (person) (ask person 'notice new-person)) (cdr people))
     (for-each (lambda (proc) (proc)) entry-procs)
     'appeared)
   (method (gone thing)
