@@ -229,6 +229,8 @@
   (parent (person name initial-place))
   (instance-vars
    (behavior 'steal))
+  (initialize
+    (ask self 'put 'strength 100))
   (method (type) 'thief)
 
   (method (notice person)
@@ -246,6 +248,24 @@
              (ask self 'take (car food-things))
              (set! behavior 'run)
              (ask self 'notice person)) )))) )
+
+(define-class (police name jail initial-place)
+  (parent (person name initial-place))
+  (initialize
+    (ask self 'put 'strength 200))
+  (method (type) 'police)
+
+  (method (notice person)
+    (if (eq? (ask person 'type) 'thief)
+      (begin
+        (ask self 'set-talk "Crime Does Not Pay")
+        (ask self 'talk)
+        (let ((stolen-things
+                (filter
+                  (lambda (thing) (eq? (ask thing 'possessor) person))
+                  (ask (usual 'place) 'things))))
+          (for-each (lambda (thing) (ask self 'take thing)) stolen-things)
+          (ask person 'go-directly-to jail))))) )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Utility procedures

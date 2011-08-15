@@ -1,0 +1,50 @@
+STk> (load "obj")
+okay
+STk> (load "adv")
+okay
+STk> (load "adv-world")
+okay
+STk> 
+(ask Federico 'take pizza)
+
+federico took pizza
+taken
+STk> (ask Federico 'go-directly-to sproul-plaza)
+
+
+federico moved from dormitory to sproul-plaza
+
+nasty took pizza
+
+Yaaah! federico is upset!
+
+
+nasty moved from sproul-plaza to telegraph-ave
+"There are tie-dyed shirts as far as you can see..."
+appeared
+STk> (ask federico 'go 'south)
+
+
+federico moved from sproul-plaza to telegraph-ave
+
+
+nasty moved from telegraph-ave to sproul-plaza
+"There are tie-dyed shirts as far as you can see..."
+appeared
+STk> (ask federico 'go 'north)
+
+
+federico moved from telegraph-ave to sproul-plaza
+
+
+nasty moved from sproul-plaza to pimentel
+"Crime Does Not Pay"
+
+basettoni took pizza
+
+Yaaah! nasty is upset!
+
+
+nasty moved from pimentel to jail
+appeared
+STk> (quit)

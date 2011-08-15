@@ -47,6 +47,7 @@
 (can-go Dormitory 'west Haas)
 (can-go Soda 'north Kirin)
 (can-go Kirin 'south Soda)
+(can-go Kirin 'north Jail)
 
 ;; Some people.
 ; MOVED above the add-entry-procedure stuff, to avoid the "The computers
@@ -57,7 +58,7 @@
 (define hacker (instantiate person 'hacker 61A-lab))
 (define nasty (instantiate thief 'nasty sproul-plaza))
 (define Federico (instantiate person 'Federico Dormitory))
-
+(define basettoni (instantiate police 'basettoni Jail Pimentel)) 
 (define sproul-hall-exit
   (let ((times 0))
     (lambda ()
@@ -99,3 +100,6 @@
 
 (define potstickers (instantiate thing 'potstickers))
 (ask Kirin 'appear potstickers)
+
+(define pizza (instantiate thing 'pizza))
+(ask Dormitory 'appear pizza)
