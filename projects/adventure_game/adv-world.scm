@@ -18,6 +18,7 @@
 (define s-h (instantiate place 'sproul-hall))
 (define Dormitory (instantiate place 'Dormitory))
 (define Kirin (instantiate place 'Kirin))
+(define Jail (instantiate place 'Jail))
 
 (can-go Soda 'up art-gallery)
 (can-go art-gallery 'down Soda)
