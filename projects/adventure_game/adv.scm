@@ -179,7 +179,7 @@
   (method (buy food-type)
     (let ((bought (ask place 'sell self food-type)))
       (if bought
-        (ask federico 'take bought)
+        (ask self 'take bought)
         #f)))
   (method (eat)
       (for-each (lambda (food)
