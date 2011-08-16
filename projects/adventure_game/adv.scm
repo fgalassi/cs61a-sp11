@@ -148,7 +148,9 @@
   (method (sell buyer food-to-buy)
     (cond ((not (eq? food-type food-to-buy)) #f)
           ((not (ask buyer 'pay-money price)) #f)
-          (else (instantiate food-type)))))
+          (else (let ((new-food (instantiate food-type)))
+                  (ask self 'appear new-food)
+                  new-food)))))
 
 (define-class (person name place)
   (parent (basic-object))
@@ -173,6 +175,11 @@
         (begin
           (ask self 'put 'money (- money amount))
           #t)
+        #f)))
+  (method (buy food-type)
+    (let ((bought (ask place 'sell self food-type)))
+      (if bought
+        (ask federico 'take bought)
         #f)))
   (method (eat)
       (for-each (lambda (food)
