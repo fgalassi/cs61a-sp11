@@ -157,7 +157,7 @@
 		 (append (ask place 'things) (ask place 'people)))))
   (method (eat)
       (for-each (lambda (food)
-                  (ask self 'put 'strength (+ (ask self 'get 'strength) (ask food 'calories)))
+                  (ask self 'put 'strength (+ (ask self 'strength) (ask food 'calories)))
                   (ask self 'lose food)
                   (ask place 'gone food))
                 (filter edible? possessions)))
@@ -242,10 +242,10 @@
     (ask self 'put 'edible? #t)
     (ask self 'put 'calories kcal)) )
 
-(define-class (bagel) (parent (food name 25)) (class-vars (name 'bagel)))
-(define-class (coffee) (parent (food name 5)) (class-vars (name 'coffee)))
-(define-class (pizza) (parent (food name 50)) (class-vars (name 'pizza)))
-(define-class (potstickers) (parent (food name 40)) (class-vars (name 'potstickers)))
+(define-class (bagel name) (parent (food name 25)) (class-vars (name 'bagel)))
+(define-class (coffee name) (parent (food name 5)) (class-vars (name 'coffee)))
+(define-class (pizza name) (parent (food name 50)) (class-vars (name 'pizza)))
+(define-class (potstickers name) (parent (food name 40)) (class-vars (name 'potstickers)))
 
 (define (edible? thing)
   (ask thing 'edible?))

@@ -92,14 +92,14 @@
 
 ;; Some things.
 
-(define sweet-bagel (instantiate bagel))
+(define sweet-bagel (instantiate bagel 'sweet-bagel))
 (ask Noahs 'appear sweet-bagel)
 
-(define long-coffee (instantiate coffee))
+(define long-coffee (instantiate coffee 'long-coffee))
 (ask Intermezzo 'appear long-coffee)
 
-(define japanese-potstickers (instantiate potstickers))
+(define japanese-potstickers (instantiate potstickers 'japanese-potstickers))
 (ask Kirin 'appear japanese-potstickers)
 
-(define pizza-salami (instantiate pizza))
+(define pizza-salami (instantiate pizza 'pizza-salami))
 (ask Dormitory 'appear pizza-salami)
