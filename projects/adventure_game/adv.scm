@@ -141,6 +141,15 @@
   (method (surf url)
     (ask (ask self 'location) 'surf self url)))
 
+(define-class (restaurant name food-type price)
+  (parent (place name))
+  (method (menu)
+    (list (ask food-type 'name) price))
+  (method (sell buyer food-to-buy)
+    (cond ((not (eq? food-type food-to-buy)) #f)
+          ((not (ask buyer 'pay-money price)) #f)
+          (else (instantiate food-type)))))
+
 (define-class (person name place)
   (parent (basic-object))
   (instance-vars
@@ -252,10 +261,10 @@
     (ask self 'put 'edible? #t)
     (ask self 'put 'calories kcal)) )
 
-(define-class (bagel name) (parent (food name 25)) (class-vars (name 'bagel)))
-(define-class (coffee name) (parent (food name 5)) (class-vars (name 'coffee)))
-(define-class (pizza name) (parent (food name 50)) (class-vars (name 'pizza)))
-(define-class (potstickers name) (parent (food name 40)) (class-vars (name 'potstickers)))
+(define-class (bagel) (parent (food name 25)) (class-vars (name 'bagel)))
+(define-class (coffee) (parent (food name 5)) (class-vars (name 'coffee)))
+(define-class (pizza) (parent (food name 50)) (class-vars (name 'pizza)))
+(define-class (potstickers) (parent (food name 40)) (class-vars (name 'potstickers)))
 
 (define (edible? thing)
   (ask thing 'edible?))

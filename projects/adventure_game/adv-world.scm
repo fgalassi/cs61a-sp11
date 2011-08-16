@@ -19,6 +19,7 @@
 (define Dormitory (instantiate place 'Dormitory))
 (define Kirin (instantiate place 'Kirin))
 (define Jail (instantiate place 'Jail))
+(define Pizzeria (instantiate restaurant 'Pizzeria pizza 9.99))
 
 (can-go Soda 'up art-gallery)
 (can-go art-gallery 'down Soda)
@@ -44,6 +45,8 @@
 (can-go Noahs 'south Intermezzo)
 (can-go Intermezzo 'north Noahs)
 (can-go Haas 'east Dormitory)
+(can-go Haas 'south Pizzeria)
+(can-go Pizzeria 'north Haas)
 (can-go Dormitory 'west Haas)
 (can-go Soda 'north Kirin)
 (can-go Kirin 'south Soda)
@@ -90,16 +93,3 @@
 (ask 61A-Lab 'add-exit-procedure
  (lambda () (print "The workstations come back to life just in time.")))
 
-;; Some things.
-
-(define sweet-bagel (instantiate bagel 'sweet-bagel))
-(ask Noahs 'appear sweet-bagel)
-
-(define long-coffee (instantiate coffee 'long-coffee))
-(ask Intermezzo 'appear long-coffee)
-
-(define japanese-potstickers (instantiate potstickers 'japanese-potstickers))
-(ask Kirin 'appear japanese-potstickers)
-
-(define pizza-salami (instantiate pizza 'pizza-salami))
-(ask Dormitory 'appear pizza-salami)
