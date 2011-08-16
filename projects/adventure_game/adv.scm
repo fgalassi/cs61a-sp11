@@ -155,6 +155,12 @@
     (map (lambda (obj) (ask obj 'name))
 	 (filter (lambda (thing) (not (eq? thing self)))
 		 (append (ask place 'things) (ask place 'people)))))
+  (method (eat)
+      (for-each (lambda (food)
+                  (ask self 'put 'strength (+ (ask self 'get 'strength) (ask food 'calories)))
+                  (ask self 'lose food)
+                  (ask place 'gone food))
+                (filter edible? possessions)))
   (method (take thing)
     (cond ((not (thing? thing)) (error "Not a thing" thing))
 	  ((not (memq thing (ask place 'things)))
@@ -230,10 +236,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Implementation of thieves for part two
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define *foods* '(pizza potstickers coffee))
+(define-class (food name kcal)
+  (parent (thing name))
+  (initialize
+    (ask self 'put 'edible? #t)
+    (ask self 'put 'calories kcal)) )
+
+(define-class (bagel) (parent (food name 25)) (class-vars (name 'bagel)))
+(define-class (coffee) (parent (food name 5)) (class-vars (name 'coffee)))
+(define-class (pizza) (parent (food name 50)) (class-vars (name 'pizza)))
+(define-class (potstickers) (parent (food name 40)) (class-vars (name 'potstickers)))
 
 (define (edible? thing)
-  (member? (ask thing 'name) *foods*))
+  (ask thing 'edible?))
 
 (define-class (thief name initial-place)
   (parent (person name initial-place))
