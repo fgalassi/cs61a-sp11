@@ -161,6 +161,12 @@
 	   (error "Thing taken not at this place"
 		  (list (ask place 'name) thing)))
 	  ((memq thing possessions) (error "You already have it!"))
+    ((and
+       (not (eq? (ask thing 'possessor) 'no-one))
+       (not (ask thing 'may-take? self)))
+     (newline)
+     (display "You may not take this thing !")
+     (newline))
 	  (else
 	   (announce-take name thing)
 	   (set! possessions (cons thing possessions))
@@ -214,6 +220,10 @@
   (initialize
     (ask self 'put 'thing? #t))
   (method (type) 'thing)
+  (method (may-take? requester)
+    (if (>= (ask requester 'strength) (ask possessor 'strength))
+      self
+      #f))
   (method (change-possessor new-possessor)
     (set! possessor new-possessor)))
 
