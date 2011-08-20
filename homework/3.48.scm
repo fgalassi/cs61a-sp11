@@ -72,3 +72,7 @@
        account1
        account2))))
 
+; The deadlock problem is resolved because every exchange tries to lock the same
+; sequence of accounts. Only one exchange can have the first account of the
+; sequence locked so the other are prevented from locking any other account.
+
