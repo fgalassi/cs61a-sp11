@@ -17,6 +17,9 @@
                          m))))
       dispatch))
 
-; This is unnecessary because method balance just reads the value. Even if it is
+; Allowing unserialized access to the bank balance can result in anomalous
+; behavior. Do you agree?
+;
+; No. This is unnecessary because method balance just reads the value. Even if it is
 ; interleaved with other operations it can have just 2 results, return the
 ; balance before the operation and after the operation which are both ok.
