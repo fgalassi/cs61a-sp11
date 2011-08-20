@@ -8,7 +8,7 @@
 ; the minimum is 100
 ; a1 a2 a3 b1...b5 a4
 ;
-; the maximum is 100000
+; the maximum is 1000000
 ; a1...a4 b1...b5
 ;
 ; a result x must be x = 10^n with 2 <= n <= 5
@@ -19,11 +19,14 @@
 ; 10000
 ; b1 b2 a1...a4 b3...b5
 ;
-; so 100 1000 10000 100000
+; 100000
+; b1 a1..a4 b2..b5
+;
+; so 100 1000 10000 1000000
 
 
 (define x 10)
 (parallel-execute (s lambda () (set! x (* x x)))
                   (s lambda () (set! x (* x x x))))
 
-; result can be 100 * 1000 or 1000 * 100 which is always 100000
+; result can be 100^3 or 1000^2 which is always 1000000
