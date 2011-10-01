@@ -1,7 +1,7 @@
 (load "4.3")
 
 (define (let-bindings exp) (cadr exp))
-(define (let-body exp) (cddr exp))
+(define (let-body exp) (caddr exp))
 
 (define (binding-variable binding) (car binding))
 (define (binding-exp binding) (cadr binding))
@@ -10,7 +10,7 @@
   (cons
     (make-lambda
       (map binding-variable (let-bindings exp))
-      (let-body exp))
+      (list (let-body exp)))
     (map binding-exp (let-bindings exp))))
 
 (define (eval-let exp env)
