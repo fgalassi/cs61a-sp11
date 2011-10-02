@@ -16,5 +16,3 @@
   (mc-eval (let*->nested-lets exp) env))
 
 (mc-put 'let* eval-let*)
-
-(let* ((x 3) (y (+ x 2)) (z (+ x y 5))) (* x z))
