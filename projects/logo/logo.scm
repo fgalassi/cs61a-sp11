@@ -3,8 +3,22 @@
 
 ;;; Problem A1   make-line-obj
 
+(define-class (line-object text)
+  (instance-vars (line text))
+  (method (empty?) (empty? line))
+  (method (next)
+          (let ((token (car line)))
+            (if token
+              (begin
+                (set! line (cdr line))
+                token)
+              #f)))
+  (method (put-back token)
+          (set! line (cons token line))
+          #t))
+
 (define (make-line-obj text)   
-  (error "make-line-obj not written yet!")) 
+  (instantiate line-object text))
 
 
 ;;; Problem A2   logo-type
