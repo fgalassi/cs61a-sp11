@@ -23,8 +23,22 @@
 
 ;;; Problem A2   logo-type
 
-(define (logo-type val)   
-  (error "logo-type not written yet!")) 
+(define (logo-type val)
+  (define (print-value val)
+    (cond ((list? val)
+           (display "[")
+           (logo-type val)
+           (display "]"))
+          (else (display val))))
+  (define (do-list val)
+    (print-value (car val))
+    (cond ((null? (cdr val)) '())
+          (else (display " ")
+                (do-list (cdr val)))))
+  (cond ((null? val) '())
+        ((list? val) (do-list val))
+        (else (print-value val)))
+  '=no-value=)
 
 (define (logo-print val)   
   (logo-type val)  
