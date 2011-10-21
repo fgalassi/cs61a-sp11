@@ -19,8 +19,10 @@
 ;;; Problem B1    eval-line
 
 (define (eval-line line-obj env)
-  (error "eval-line not written yet!"))
-
+  (let ((result (logo-eval line-obj env)))
+    (cond ((not (eq? result '=no-value=)) result)
+          ((ask line-obj 'empty?) '=no-value=)
+          (else (eval-line line-obj env)))))
 
 ;;; Problem 4    variables  (other procedures must be modified, too)
 ;;; data abstraction procedures
